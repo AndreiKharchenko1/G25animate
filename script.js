@@ -7,8 +7,11 @@ document.getElementById('inputString').addEventListener('keydown', function(even
 
 function processInput() {
     const inputString = document.getElementById('inputString').value;
-    const numberArray = inputString.match(/-?\d+(\.\d+)?/g);  // Extract numbers
+    const numberArray = inputString.match(/-?\d+(\.\d+)?([eE][+-]?\d+)?/g);  // Extract numbers including scientific notation
     const userindex = numberArray.map(Number).slice(0, 25);  // Convert to numbers and limit to 25 elements
+    
+    // Convert numbers in scientific notation to floating-point numbers
+    const floatNumbers = userindex.map(num => parseFloat(num.toFixed(20)));
 
     const IrishG25 = "0.133361,0.134098,0.061169,0.048864,0.037788,0.019352,0.003293,0.004713,0.003568,0.002927,-0.006971,0.00584,-0.014189,-0.014076,0.025935,0.005215,-0.011145,0.001894,0.000597,0.001776,0.005114,0.001279,0.000293,0.014407,0.000661";
     const IRISHCOORDS = IrishG25.split(",").map(Number);
