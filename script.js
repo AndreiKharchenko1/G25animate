@@ -149,10 +149,10 @@ function processInput() {
     
         // Step 3: Assign initial weights based on the ranking
         let weights = Array(numCoords).fill(0);
-        let initialWeight = 0.25;
+        let initialWeight = 0.93;
         for (let i = 0; i < distances.length; i++) {
             weights[distances[i].index] = initialWeight;
-            initialWeight /= 1.65;
+            initialWeight /= 9.9;
         }
     
         const learningRate = 0.001;
