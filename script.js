@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded', (event) => {
 document.getElementById('submitButton').addEventListener('click', processInput);
 document.getElementById('inputString').addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
@@ -267,7 +268,67 @@ function processInput() {
         SARDINIANCOORDS
 
     );
+
+    function sortAndFilterNonZero(valuesArray, sourcesArray) {
+        // Combine values with their corresponding sources
+        let combinedArray = valuesArray.map((value, index) => ({
+            value: value,
+            source: sourcesArray[index]
+        }));
     
-    document.getElementById('output').innerText = `Mixture Coefficients: Mesopotamian: ${a.toFixed(4)}, Baloch: ${b.toFixed(4)}, Irish: ${c.toFixed(4)}, Arabian: ${d.toFixed(4)}, Baltic: ${e.toFixed(4)}, Czech: ${f.toFixed(4)}, EastSlav: ${g.toFixed(4)}, Finnish: ${h.toFixed(4)}, Greek: ${i.toFixed(4)}, Iberian: ${j.toFixed(4)}, Italian: ${k.toFixed(4)}, Kavkaz: ${l.toFixed(4)}, Kenyan: ${m.toFixed(4)}, Khoisan: ${n.toFixed(4)}, Nafri: ${o.toFixed(4)}, Pomor_Leshukonsk: ${p.toFixed(4)}, Saami: ${q.toFixed(4)}, Scandinavian: ${r.toFixed(4)}, , Udmurt: ${s.toFixed(4)}, Volga-Tatar: ${t.toFixed(4)}, Yoruba: ${u.toFixed(4)}, Australian: ${v.toFixed(4)}, Chinese: ${w.toFixed(4)}, Japanese: ${x.toFixed(4)}, Khanty: ${y.toFixed(4)}, Mongol: ${z.toFixed(4)}, Papuan: ${A.toFixed(4)}, South East Asian: ${B.toFixed(4)}, Punjabi Jatt: ${C.toFixed(4)}, Tajik: ${D.toFixed(4)}, Tamil: ${E.toFixed(4)}, Bengali: ${F.toFixed(4)}, Somali: ${G.toFixed(4)}, Gujarati: ${H.toFixed(4)}, Andamanese: ${I.toFixed(4)}, Basque: ${J.toFixed(4)}, Sardinian: ${K.toFixed(4)}`;
+        // Sort the combined array by value in descending order
+        combinedArray.sort((a, b) => b.value - a.value);
     
+        // Filter out the elements with a value of zero
+        let filteredArray = combinedArray.filter(item => item.value  >= 0.001);
+    
+        // Return the filtered array
+        return filteredArray;
+    }
+
+
+    let valuesArray = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F, G, H, I, J, K];
+    let SourcesArray =['Mesopotamians.mp4', 'Balochi.mp4', 'Irish.mp4', 'Arabian.mp4', 'Baltic.mp4', 'CentralEuro.mp4', 'EastSlav.mp4', 'Finnish.mp4', 'Greek.mp4',
+        'Iberian.mp4','Italy.mp4','Kavkaz.mp4','Kenyan.mp4','KhoiSan.mp4','Nafri.mp4','Pomor.mp4','Saami.mp4','Scandinavian.mp4','Udmurt.mp4','VolgaTatar.mp4',
+        'Yoruba.mp4','Australian.mp4','Chinese.mp4','Japanese.mp4','Khanty.mp4','Mongol.mp4','Papuan.mp4','SEA.mp4','Jatt.mp4','Tajik.mp4','Tamil.mp4','Bengali.mp4',
+        'Somali.mp4','Gujarati.mp4','Andamanese.mp4','Basque.mp4','Sardinian.mp4'
+    ];
+    
+    let result = sortAndFilterNonZero(valuesArray, SourcesArray);
+
+     console.log(result);
+
+     const percentages = result.map(item => item.value * 100);  // Convert to percentages
+     const videos = result.map(item => item.source);  // Extract the video sources from the result
+     let currentVideoIndex = 0;
+     const videoPlayer = document.getElementById('videoPlayer');
+     
+     
+     
+     // Function to load and play the current video and update the overlay
+     function loadAndPlayVideo(index) {
+         if (index < videos.length) {
+             videoPlayer.src = videos[index];
+             // Update the overlay text with the formatted value
+             const value = percentages[index];
+             OVERLAY = value.toFixed(2) + '%';  // Format to 2 decimal places
+             console.log(OVERLAY, value);
+             document.getElementById('current').innerText = OVERLAY;
+             videoPlayer.play();
+             document.getElementById('output').innerText += videos[index] + " -- " + percentages[index].toFixed(2) + "% \n";
+         }
+     }
+     
+     // Event listener for when the video ends
+     videoPlayer.addEventListener('ended', function() {
+         currentVideoIndex++;
+         if (currentVideoIndex < videos.length) {
+             loadAndPlayVideo(currentVideoIndex);
+         }
+     });
+     
+     // Start playing the first video
+     loadAndPlayVideo(currentVideoIndex);
+     
 }
+});
