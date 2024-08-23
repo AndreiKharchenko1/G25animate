@@ -130,6 +130,18 @@ function processInput() {
 
     const AMERINDIANG25 = "0.056229,-0.269522,0.1111,0.087469,-0.09688,-0.016957,-0.273881,-0.327263,-0.01129,-0.012392,-0.004027,-0.002008,-0.002438,0.021937,-0.003664,0.008221,0.007745,-0.001824,-0.000025,0.000425,-0.001073,0.009224,0.000468,0.003519,-0.002155";
     const AMERINDIANCOORDS = AMERINDIANG25.split(",").map(Number);
+
+    //Add new now
+
+    const ArcticG25 = "0.044992,-0.411402,0.155635,0.00035,-0.160996,-0.09019,0.028671,0.0413,0.029406,0.013354,0.101939,0.0091,-0.004018,-0.02658,-0.020354,-0.010464,0.001934,0.013971,0.025496,-0.000886,0.042481,-0.012956,0.032291,0.000321,0.013";
+    const ARCTICCOORDS = ArcticG25.split(",").map(Number);
+
+    const BalkanG25 = "0.127311,0.137587,0.039943,0.015698,0.032068,0.004895,0.004653,0.006411,0.000508,0.001488,-0.001378,-0.001474,0.002859,0.012297,-0.013746,-0.001772,0.00583,0.000289,0.00591,-0.002357,-0.007726,-0.000998,0.00502,-0.000207,-0.001579";
+    const BALKANCOORDS = BalkanG25.split(",").map(Number);
+
+    const CentralAsianG25 = "0.075271,-0.102038,-0.001164,0.007106,-0.034829,0.005372,0.008062,0.005729,-0.014619,-0.009904,-0.017058,-0.00331,0.002204,-0.003859,0.00609,0.004808,-0.002931,-0.000402,0.000973,-0.001245,-0.008181,-0.002328,-0.003681,0.000126,0.001453";
+    const CENTRALASIANCOORDS = CentralAsianG25.split(",").map(Number);
+
     // Optimization to find best coefficients
     function optimizeMixture(userindex, ...coordsArray) {
         const n = userindex.length;
@@ -228,7 +240,7 @@ function processInput() {
     }
     
    
-    const [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y ,z , A, B , C, D, E, F, G, H, I, J, K, L] = optimizeMixture(
+    const [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y ,z , A, B , C, D, E, F, G, H, I, J, K, L, M, N, O] = optimizeMixture(
         userindex, 
         MESOPOTAMIANCOORDS, 
         BALOCHCOORDS, 
@@ -267,7 +279,10 @@ function processInput() {
         ANDAMANESECOORDS,
         BASQUECOORDS,
         SARDINIANCOORDS,
-        AMERINDIANCOORDS
+        AMERINDIANCOORDS,
+        ARCTICCOORDS,
+        BALKANCOORDS,
+        CENTRALASIANCOORDS
 
     );
 
@@ -289,11 +304,11 @@ function processInput() {
     }
 
 
-    let valuesArray = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F, G, H, I, J, K, L];
+    let valuesArray = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O];
     let SourcesArray =['Mesopotamians.mp4', 'Balochi.mp4', 'Irish.mp4', 'Arabian.mp4', 'Baltic.mp4', 'CentralEuro.mp4', 'EastSlav.mp4', 'Finnish.mp4', 'Greek.mp4',
         'Iberian.mp4','Italy.mp4','Kavkaz.mp4','Kenyan.mp4','KhoiSan.mp4','Nafri.mp4','Pomor.mp4','Saami.mp4','Scandinavian.mp4','Udmurt.mp4','VolgaTatar.mp4',
         'Yoruba.mp4','Australian.mp4','Chinese.mp4','Japanese.mp4','Khanty.mp4','Mongol.mp4','Papuan.mp4','SEA.mp4','Jatt.mp4','Tajik.mp4','Tamil.mp4','Bengali.mp4',
-        'Somali.mp4','Gujarati.mp4','Andamanese.mp4','Basque.mp4','Sardinian.mp4', 'Amerindian.mp4'
+        'Somali.mp4','Gujarati.mp4','Andamanese.mp4','Basque.mp4','Sardinian.mp4', 'Amerindian.mp4', 'Arctic.mp4', 'Balkan.mp4', 'CentralAsian.mp4'
     ];
     
     let result = sortAndFilterNonZero(valuesArray, SourcesArray);
