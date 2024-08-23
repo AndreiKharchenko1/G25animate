@@ -7,6 +7,10 @@ document.getElementById('inputString').addEventListener('keydown', function(even
 });
 
 function processInput() {
+     // Default maximum number of groups to select
+ let maxGroups = document.getElementById("GLOBALMAX").value;
+
+    
     const inputString = document.getElementById('inputString').value;
     const numberArray = inputString.match(/-?\d+(\.\d+)?([eE][+-]?\d+)?/g);  // Extract numbers including scientific notation
     const userindex = numberArray.map(Number).slice(0, 25);  // Convert to numbers and limit to 25 elements
@@ -163,6 +167,7 @@ function processInput() {
     function optimizeMixture(userindex, ...coordsArray) {
         const n = userindex.length;
         const numCoords = coordsArray.length;
+        
     
         // Step 1: Calculate distances between userindex and each coordinate set in coordsArray
         const distances = coordsArray.map((coords, index) => {
@@ -179,15 +184,15 @@ function processInput() {
         // Step 3: Assign initial weights based on the ranking
         let weights = Array(numCoords).fill(0);
         let initialWeight = 0.93;
-        for (let i = 0; i < distances.length; i++) {
+        for (let i = 0; i < Math.min(maxGroups, distances.length); i++) {
             weights[distances[i].index] = initialWeight;
             initialWeight /= 9.9;
         }
     
         const learningRate = 0.001;
-        const tolerance = 1e-10;
+        const tolerance = 1e-11;
         let iteration = 0;
-        const maxIterations = 100000000;
+        const maxIterations = 1000000;
     
         function costFunction(weights) {
             let cost = 0;
@@ -226,6 +231,19 @@ function processInput() {
                 weights[j] = Math.max(0, Math.min(1, weights[j]));
                 sum += weights[j];
             }
+            for (let j = 0; j < numCoords; j++) {
+                weights[j] /= sum;
+            }
+    
+            // Keep only the top maxGroups weights
+            const weightIndices = weights.map((weight, index) => ({ weight, index }));
+            weightIndices.sort((a, b) => b.weight - a.weight);
+            for (let i = maxGroups; i < numCoords; i++) {
+                weights[weightIndices[i].index] = 0;
+            }
+    
+            // Normalize weights again after zeroing out
+            sum = weights.reduce((acc, w) => acc + w, 0);
             for (let j = 0; j < numCoords; j++) {
                 weights[j] /= sum;
             }
