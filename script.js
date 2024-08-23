@@ -142,6 +142,9 @@ function processInput() {
     const CentralAsianG25 = "0.075271,-0.102038,-0.001164,0.007106,-0.034829,0.005372,0.008062,0.005729,-0.014619,-0.009904,-0.017058,-0.00331,0.002204,-0.003859,0.00609,0.004808,-0.002931,-0.000402,0.000973,-0.001245,-0.008181,-0.002328,-0.003681,0.000126,0.001453";
     const CENTRALASIANCOORDS = CentralAsianG25.split(",").map(Number);
 
+    const MokshaG25 = "0.126799,0.088554,0.072445,0.061564,0.023912,0.020387,0.009894,0.01313,-0.003538,-0.027791,0.001056,-0.006714,0.017378,0.014313,-0.012337,-0.002214,0.003129,-0.001191,-0.000478,-0.002539,-0.002296,-0.003314,0.003845,-0.000615,0.001569";
+    const MOKSHACOORDS = MokshaG25.split(",").map(Number);
+
     // Optimization to find best coefficients
     function optimizeMixture(userindex, ...coordsArray) {
         const n = userindex.length;
@@ -240,7 +243,7 @@ function processInput() {
     }
     
    
-    const [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y ,z , A, B , C, D, E, F, G, H, I, J, K, L, M, N, O] = optimizeMixture(
+    const [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y ,z , A, B , C, D, E, F, G, H, I, J, K, L, M, N, O, P] = optimizeMixture(
         userindex, 
         MESOPOTAMIANCOORDS, 
         BALOCHCOORDS, 
@@ -282,7 +285,8 @@ function processInput() {
         AMERINDIANCOORDS,
         ARCTICCOORDS,
         BALKANCOORDS,
-        CENTRALASIANCOORDS
+        CENTRALASIANCOORDS,
+        MOKSHACOORDS
 
     );
 
@@ -304,12 +308,12 @@ function processInput() {
     }
 
 
-    let valuesArray = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O];
+    let valuesArray = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P];
     let SourcesArray =['Mesopotamians.mp4', 'Balochi.mp4', 'Irish.mp4', 'Arabian.mp4', 'Baltic.mp4', 'CentralEuro.mp4', 'EastSlav.mp4', 'Finnish.mp4', 'Greek.mp4',
         'Iberian.mp4','Italy.mp4','Kavkaz.mp4','Kenyan.mp4','KhoiSan.mp4','Nafri.mp4','Pomor.mp4','Saami.mp4','Scandinavian.mp4','Udmurt.mp4','VolgaTatar.mp4',
         'Yoruba.mp4','Australian.mp4','Chinese.mp4','Japanese.mp4','Khanty.mp4','Mongol.mp4','Papuan.mp4','SEA.mp4','Jatt.mp4','Tajik.mp4','Tamil.mp4','Bengali.mp4',
-        'Somali.mp4','Gujarati.mp4','Andamanese.mp4','Basque.mp4','Sardinian.mp4', 'Amerindian.mp4', 'Arctic.mp4', 'Balkan.mp4', 'CentralAsian.mp4'
-    ];
+        'Somali.mp4','Gujarati.mp4','Andamanese.mp4','Basque.mp4','Sardinian.mp4', 'Amerindian.mp4', 'Arctic.mp4', 'Balkan.mp4', 'CentralAsian.mp4', 'Moksha.mp4'];
+    
     
     let result = sortAndFilterNonZero(valuesArray, SourcesArray);
 
